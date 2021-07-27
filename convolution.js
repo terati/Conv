@@ -32,8 +32,15 @@ var img = new Image;
 var imgdata;
 img.src = "./doggo.jpg";
 
+var kernel = [
+    [-1,0,1],
+    [-2,0,2],
+    [-1,0,1]
+]
+
 function init() {
     console.log("Initialize");
+    console.log(kernel[1][0]);
     img.onload = () => {
         canvas.width = img.width;
         canvas.height = img.height;
@@ -51,8 +58,6 @@ function readURL(input) {
         var reader = new FileReader();
 
         reader.onload = function (e) {
-            $('#blah')
-                .attr('src', e.target.result);
             manip(e.target.result);
         };
 
@@ -71,14 +76,12 @@ function manip(pic) {
 		imgdata = ctxt.getImageData(0, 0, img.width, img.height);
         var data = imgdata.data;
         data_copy = new Uint8ClampedArray(imgdata.data);
-        for (let i=0; i<data.length; i+=4){
-            // data[i] = 255;
-            // data[i+1] = 0;
-            // data[i+2] = 0;
-        }
+        // for (let i=0; i<data.length; i+=4){
+        //     // data[i] = 255;
+        //     // data[i+1] = 0;
+        //     // data[i+2] = 0;
+        // }
         ctxt.putImageData(imgdata,0,0);
-        // console.log(data);
-        // console.log(data.length);
 	}
 }
 
@@ -87,11 +90,66 @@ function convolve() {
     // console.log(data_copy);
     imgdata = ctxt.getImageData(0, 0, img.width, img.height);
     var data = imgdata.data;
-    for (let i=0; i<data.length; i+=4){
-        data[i] = 255;
-        // data[i+1] = 0;
-        // data[i+2] = 0;
+    var w = img.width;
+    var h = img.height;
+    var arr = new Array(img.height+2).fill(0).map(()=>new Array(img.width+2).fill(0));
+
+    function ConvolveChannel(a) {
+        //populate the inner image
+        var cnt = 0;
+        for (let r = 1; r < img.height+1; r++){   
+            for (let c = 1; c < img.width+1; c++){
+                arr[r][c] = data[4*cnt+a]
+                cnt++;
+            }
+        }
+
+
+        // top edge case
+        for (let c = 1; c < img.width+1; c++){
+            arr[0][c] = arr[1][c];
+            if (c == 1){
+                arr[0][0] = arr[1][c];
+            }
+            if (c == img.width){
+                arr[0][img.width+1] = arr[1][c];
+            }
+        }
+
+        // bottom edge case
+        for (let c = 1; c < img.width+1; c++){
+            arr[img.height+1][c] = arr[img.height][c];
+            if (c == 1){
+                arr[img.height+1][0] = arr[img.height][c];
+            }
+            if (c == img.width){
+                arr[img.height+1][img.width+1] = arr[img.height][c];
+            }
+        }
+
+        // left and right edge cases
+        for (let r = 1; r < img.height+1; r++){
+            arr[r][0] = arr[r][1];
+            arr[r][img.width+1] = arr[r][img.width];
+        }
+
+        // convolving kernel to arr
+        cnt = 0;
+        for (let r = 1; r < img.height+1; r++){   //populate the inner image
+            for (let c = 1; c < img.width+1; c++){
+                data[cnt*4+a] = kernel[0][0]*arr[r-1][c-1] + kernel[0][1]*arr[r-1][c] + kernel[0][2]*arr[r-1][c+1]
+                            + kernel[1][0]*arr[r][c-1] + kernel[1][1]*arr[r][c] + kernel[1][2]*arr[r][c+1]
+                            + kernel[2][0]*arr[r+1][c-1] + kernel[2][1]*arr[r+1][c] + kernel[2][2]*arr[r+1][c+1]
+                cnt++
+            }                   
+        }
     }
+
+    ConvolveChannel(0);
+    ConvolveChannel(1);
+    ConvolveChannel(2);
+
+    // console.log(data);
     ctxt.putImageData(imgdata,0,0);
 }
 
