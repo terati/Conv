@@ -12,11 +12,14 @@
 
     <h2 id="title"> Image Convolution By 3x3 Kernel</h2>
 
-    <input type='file'  onchange="readURL(this);" />
 
-    <button class="button1" onclick="convolve()">Convolve</button>
-    <button class="button1" onclick="revert()">Revert</button>
-
+    <div align="center" class="buttons"> 
+        <input type="file" id="upload" onchange="readURL(this);" hidden/>
+        <label for="upload">Choose file</label>
+        <button class="button1" onclick="convolve()">Convolve</button>
+        <button class="button1" onclick="revert()">Revert</button>
+    </div>
+    
     <canvas id="gameCanvas" ></canvas> 
 
 

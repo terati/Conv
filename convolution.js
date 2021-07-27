@@ -93,7 +93,7 @@ function convolve() {
     var w = img.width;
     var h = img.height;
     var arr = new Array(img.height+2).fill(0).map(()=>new Array(img.width+2).fill(0));
-
+    
     function ConvolveChannel(a) {
         //populate the inner image
         var cnt = 0;
