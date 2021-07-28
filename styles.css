@@ -41,7 +41,7 @@ canvas {
 }
 
 .button1:hover  {
-  background-color: #5da5bd;
+  background-color: #4d4e4e;
 }
 
 
@@ -60,7 +60,7 @@ label{
 }
 
 label:hover {
-  background-color: #5da5bd;
+  background-color: #4d4e4e;
 }
 
 #inputField {
