@@ -4,14 +4,14 @@
 <head>
     <link rel="stylesheet" href="styles.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    
+    <script src='https://cdn.plot.ly/plotly-2.3.0.min.js'></script>
 </head>
 
 
 <body>
 
     <h2 id="title"> Image Convolution By 3x3 Kernel</h2>
-
+    <p id="author"> By: Timothy Wong </p>
 
     <div align="center" class="buttons"> 
         <input type="file" id="upload" onchange="readURL(this);" hidden/>
@@ -20,8 +20,30 @@
         <button class="button1" onclick="revert()">Revert</button>
     </div>
     
-    <canvas id="gameCanvas" ></canvas> 
 
+    <div class="main_item">
+        <form id="inputField" role="form">
+            <h1> Kernel</h1>
+            <input type="number" class="kfill" id="k0" placeholder="1" min="-5.0" max="5.0" step="0.1" onchange="trigger(this);"> 
+            <input type="number" class="kfill" id="k1" placeholder="1" min="-5.0" max="5.0" step="0.1" onchange="trigger(this);"> 
+            <input type="number" class="kfill" id="k2" placeholder="1" min="-5.0" max="5.0" step="0.1" onchange="trigger(this);"> 
+            <br>
+            <input type="number" class="kfill" id="k3" placeholder="1" min="-5.0" max="5.0" step="0.1" onchange="trigger(this);"> 
+            <input type="number" class="kfill" id="k4" placeholder="1" min="-5.0" max="5.0" step="0.1" onchange="trigger(this);"> 
+            <input type="number" class="kfill" id="k5" placeholder="1" min="-5.0" max="5.0" step="0.1" onchange="trigger(this);"> 
+            <br>
+            <input type="number" class="kfill" id="k6" placeholder="1" min="-5.0" max="5.0" step="0.1" onchange="trigger(this);"> 
+            <input type="number" class="kfill" id="k7" placeholder="1" min="-5.0" max="5.0" step="0.1" onchange="trigger(this);"> 
+            <input type="number" class="kfill" id="k8" placeholder="1" min="-5.0" max="5.0" step="0.1" onchange="trigger(this);"> 
+            <br>
+        </form>
+    
+        <canvas id="gameCanvas" ></canvas> 
+    </div>
+
+    <!-- Plotly here -->
+    <div id='myDiv'> </div> 
+ 
 
     <script src="convolution.js"> </script>
 </body>

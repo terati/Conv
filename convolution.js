@@ -24,6 +24,7 @@
 // }
 
 
+
 var canvas=document.getElementById("gameCanvas");
 var ctxt = canvas.getContext('2d');
 var data_copy;
@@ -38,14 +39,90 @@ var kernel = [
     [-1,0,1]
 ]
 
+var red_y = new Array(256).fill(0);
+var green_y = new Array(256).fill(0);
+var blue_y = new Array(256).fill(0);
+var x = new Array(256);
+
 function init() {
     console.log("Initialize");
-    console.log(kernel[1][0]);
+    for (let i = 0; i < 256; i++){
+        x[i] = i;
+    }
     img.onload = () => {
         canvas.width = img.width;
         canvas.height = img.height;
         ctxt.drawImage(img, 0, 0);
+        imgdata = ctxt.getImageData(0, 0, img.width, img.height);
+        var data = imgdata.data;
+        for (let i=0; i<data.length; i+=4){
+            let idx = data[i];
+            red_y[idx]++;
+            idx = data[i+1];
+            green_y[idx]++;
+            idx = data[i+2];
+            blue_y[idx]++;
+        }
+        // console.log(red_y);
+        blue_y = blue_y.slice(1,256);
+        green_y = green_y.slice(1,256);
+        red_y = red_y.slice(1,256);
+        console.log(red_y);
+        var rtrace = {
+            x:x,
+            y:red_y,
+            type: 'bar',
+            width: 1,
+            opacity: 0.6,
+            marker: {
+                color: 'rgba(255,0, 0, 0.9)'
+            }
+        };
+        var gtrace = {
+            x:x,
+            y:green_y,
+            type: 'bar',
+            width: 1,
+            opacity: 0.6,
+            marker: {
+                color: 'rgba(0, 255, 0, 0.9)'
+            }
+        };
+        var btrace = {
+            x:x,
+            y:blue_y,
+            type: 'bar',            
+            width: 1,
+            opacity: 0.6,
+            marker: {
+                color: 'rgba(0, 0, 255, 0.9)'
+            }
+        };
+        var data = [rtrace, gtrace, btrace];
+        var layout = {
+            title: "Color Histogram",
+            staticPlot: true,
+            paper_bgcolor: 'rgba(0,0,0,0)',
+            plot_bgcolor: 'rgba(0,0,0,0)',
+            showlegend: false,
+            bargap: 0.,
+            font : {
+                color: "white"
+            },
+            xaxis: {
+                showgrid: false
+            },
+            yaxis: {
+                showgrid: false,
+                showline: true
+            }
+        }
+        var ex = {
+            staticPlot: true,
+        }
+        Plotly.newPlot('myDiv', data, layout, ex);
     }
+
 }
 init();
 
@@ -93,7 +170,7 @@ function convolve() {
     var w = img.width;
     var h = img.height;
     var arr = new Array(img.height+2).fill(0).map(()=>new Array(img.width+2).fill(0));
-    
+
     function ConvolveChannel(a) {
         //populate the inner image
         var cnt = 0;
@@ -157,4 +234,21 @@ function convolve() {
 function revert() {
     ctxt.drawImage(img, 0, 0);
 }
+
+
+function trigger() {
+    kernel[0][0] = document.getElementById('k0').value;
+    kernel[0][1] = document.getElementById('k0').value;
+    kernel[0][2] = document.getElementById('k0').value;
+
+    kernel[1][0] = document.getElementById('k0').value;
+    kernel[1][1] = document.getElementById('k0').value;
+    kernel[1][2] = document.getElementById('k0').value;
+
+    kernel[2][0] = document.getElementById('k0').value;
+    kernel[2][1] = document.getElementById('k0').value;
+    kernel[2][2] = document.getElementById('k0').value;
+
+}
+
 
