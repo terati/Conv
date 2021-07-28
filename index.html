@@ -24,22 +24,35 @@
     <div class="main_item">
         <form id="inputField" role="form">
             <h1> Kernel</h1>
-            <input type="number" class="kfill" id="k0" placeholder="1" min="-5.0" max="5.0" step="0.1" onchange="trigger(this);"> 
-            <input type="number" class="kfill" id="k1" placeholder="1" min="-5.0" max="5.0" step="0.1" onchange="trigger(this);"> 
-            <input type="number" class="kfill" id="k2" placeholder="1" min="-5.0" max="5.0" step="0.1" onchange="trigger(this);"> 
+            <input type="number" class="kfill" id="k0" placeholder="0" min="-5.0" max="5.0" step="0.1" onchange="trigger(this);"> 
+            <input type="number" class="kfill" id="k1" placeholder="-1" min="-5.0" max="5.0" step="0.1" onchange="trigger(this);"> 
+            <input type="number" class="kfill" id="k2" placeholder="0" min="-5.0" max="5.0" step="0.1" onchange="trigger(this);"> 
             <br>
-            <input type="number" class="kfill" id="k3" placeholder="1" min="-5.0" max="5.0" step="0.1" onchange="trigger(this);"> 
-            <input type="number" class="kfill" id="k4" placeholder="1" min="-5.0" max="5.0" step="0.1" onchange="trigger(this);"> 
-            <input type="number" class="kfill" id="k5" placeholder="1" min="-5.0" max="5.0" step="0.1" onchange="trigger(this);"> 
+            <input type="number" class="kfill" id="k3" placeholder="-1" min="-5.0" max="5.0" step="0.1" onchange="trigger(this);"> 
+            <input type="number" class="kfill" id="k4" placeholder="5" min="-5.0" max="5.0" step="0.1" onchange="trigger(this);"> 
+            <input type="number" class="kfill" id="k5" placeholder="-1" min="-5.0" max="5.0" step="0.1" onchange="trigger(this);"> 
             <br>
-            <input type="number" class="kfill" id="k6" placeholder="1" min="-5.0" max="5.0" step="0.1" onchange="trigger(this);"> 
-            <input type="number" class="kfill" id="k7" placeholder="1" min="-5.0" max="5.0" step="0.1" onchange="trigger(this);"> 
-            <input type="number" class="kfill" id="k8" placeholder="1" min="-5.0" max="5.0" step="0.1" onchange="trigger(this);"> 
+            <input type="number" class="kfill" id="k6" placeholder="0" min="-5.0" max="5.0" step="0.1" onchange="trigger(this);"> 
+            <input type="number" class="kfill" id="k7" placeholder="-1" min="-5.0" max="5.0" step="0.1" onchange="trigger(this);"> 
+            <input type="number" class="kfill" id="k8" placeholder="0" min="-5.0" max="5.0" step="0.1" onchange="trigger(this);"> 
             <br>
+            
+            <select name="mySelect" id="mySelect" onchange="selectFunct(this)">
+                <option value="sharpen">Sharpen</option>
+                <option value="blur">Gaussian Blur</option>
+                <option value="hsobel">Horizontal Sobel</option>
+                <option value="vsobel">Vertical Sobel</option>
+                <option value="identity">Identity</option>
+
+            </select>
         </form>
     
         <canvas id="gameCanvas" ></canvas> 
     </div>
+
+    <p align = "center"> * Note that this only works for RGBA channel color images for now. 
+        <br> Filters do stack on the image so be sure to hit REVERT between filters if you do not want to stack filters. 
+        <br> This implementation deals with edge handling by extending the border pixels.</p>
 
     <!-- Plotly here -->
     <div id='myDiv'> </div> 
