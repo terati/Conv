@@ -118,3 +118,39 @@ label:hover {
 ::placeholder {
   color: white;
 }
+
+
+
+.top {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#iconic {
+  display: inline;
+  margin-right: 10px;
+}
+
+#author {
+  display: inline;
+}
+
+
+
+
+
+
+
+
+
+
+
+.fa:hover {
+  opacity: 0.7;
+}
+
+/* Facebook */
+.fa-github {
+  color: white;
+  text-align: center;
+}

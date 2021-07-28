@@ -5,13 +5,19 @@
     <link rel="stylesheet" href="styles.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src='https://cdn.plot.ly/plotly-2.3.0.min.js'></script>
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <link rel="icon" href="ctree.png">
 <body>
 
     <h2 id="title"> Image Convolution By 3x3 Kernel</h2>
-    <p id="author"> By: Timothy Wong </p>
+    <div class="top">
+        <a id="iconic" href="https://github.com/wongtimothy13/Conv" class="fa fa-github"></a>
+        <p id="author"> By: Timothy Wong </p>
+    </div>
+    
 
     <div align="center" class="buttons"> 
         <input type="file" id="upload" onchange="readURL(this);" hidden/>
@@ -52,7 +58,8 @@
 
     <p align = "center"> * Note that this only works for RGBA channel color images for now. 
         <br> Filters do stack on the image so be sure to hit REVERT between filters if you do not want to stack filters. 
-        <br> This implementation deals with edge handling by extending the border pixels.</p>
+        <br> This implementation deals with edge handling by extending the border pixels.
+        <br> Article: Coming Soon </p>
 
     <!-- Plotly here -->
     <div id='myDiv'> </div> 
