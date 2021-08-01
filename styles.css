@@ -139,6 +139,16 @@ label:hover {
 
 
 
+a:link#article  {
+  color: white;
+  background-color: yellow;
+}
+
+a:hover#article  {
+  color:rgb(12, 12, 12);
+  background-color: white;
+}
+
 
 
 
